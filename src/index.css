@@ -328,6 +328,98 @@ body {
     z-index: 1;
   }
 
+  /* =========================================================================
+     FLOATING STAT CHIPS (the three cards beside the profile photo)
+
+     `.glass` is deliberately subtle, which is correct for large surfaces but
+     makes small floating cards disappear on a near-black canvas. These get
+     their own high-contrast, brand-glow treatment instead.
+     ========================================================================= */
+  .stat-float {
+    position: relative;
+    border-radius: 1rem;
+    padding: 0.7rem 0.95rem;
+    border: 1px solid color-mix(in oklab, var(--c-brand) 40%, transparent);
+    background: linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--c-brand) 14%, var(--c-surface)) 0%,
+      var(--c-surface) 65%
+    );
+    backdrop-filter: blur(20px) saturate(190%);
+    -webkit-backdrop-filter: blur(20px) saturate(190%);
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--c-brand) 20%, transparent),
+      0 0 26px -6px color-mix(in oklab, var(--c-brand) 50%, transparent),
+      0 18px 40px -20px rgb(0 0 0 / 0.85),
+      inset 0 1px 0 rgb(255 255 255 / 0.1);
+    transition:
+      box-shadow 0.35s ease,
+      border-color 0.35s ease,
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Dark mode: opaque core, brighter ring, stronger glow. */
+  [data-theme="dark"] .stat-float {
+    border-color: color-mix(in oklab, var(--c-brand) 65%, transparent);
+    background: linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--c-brand) 26%, #141a30) 0%,
+      #090c18 100%
+    );
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--c-brand) 40%, transparent),
+      0 0 30px -4px color-mix(in oklab, var(--c-brand) 75%, transparent),
+      0 0 70px -22px color-mix(in oklab, var(--c-accent) 60%, transparent),
+      0 20px 45px -22px rgb(0 0 0 / 0.95),
+      inset 0 1px 0 rgb(255 255 255 / 0.16);
+  }
+
+  .stat-float:hover {
+    border-color: color-mix(in oklab, var(--c-brand) 90%, transparent);
+  }
+
+  [data-theme="dark"] .stat-float:hover {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--c-brand) 60%, transparent),
+      0 0 44px -2px color-mix(in oklab, var(--c-brand) 95%, transparent),
+      0 0 100px -24px color-mix(in oklab, var(--c-accent) 75%, transparent),
+      0 20px 45px -22px rgb(0 0 0 / 0.95),
+      inset 0 1px 0 rgb(255 255 255 / 0.2);
+  }
+
+  .stat-float .stat-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(100deg, #ffffff 0%, #d9d3ff 45%, #9df3ec 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(
+      0 0 12px color-mix(in oklab, var(--c-brand) 85%, transparent)
+    );
+  }
+
+  [data-theme="dark"] .stat-float .stat-value {
+    background: linear-gradient(
+      100deg,
+      #ffffff 0%,
+      #cfc6ff 40%,
+      #7ef2e6 100%
+    );
+    filter: drop-shadow(0 0 14px color-mix(in oklab, var(--c-brand) 95%, transparent))
+      drop-shadow(0 0 30px color-mix(in oklab, var(--c-accent) 55%, transparent));
+  }
+
+  .stat-float .stat-label {
+    color: color-mix(in oklab, var(--c-ink) 72%, transparent);
+    font-weight: 600;
+  }
+
+  [data-theme="dark"] .stat-float .stat-label {
+    color: color-mix(in oklab, #ffffff 82%, transparent);
+  }
+
   /* --- Decorative backgrounds ------------------------------------------ */
   .grid-lines {
     background-image:

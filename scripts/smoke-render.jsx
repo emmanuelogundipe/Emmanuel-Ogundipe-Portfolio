@@ -32,6 +32,10 @@ export function check() {
     // CV / Resume preview
     "CV view button": html.includes("View CV"),
     "Resume view button": html.includes("View Résumé"),
+    // Floating stat chips beside the profile photo
+    "stat chip: design assets": html.includes("stat-value") && html.includes("Design &amp; brand assets"),
+    "stat chip: IoT builds": html.includes("IoT systems built"),
+    "stat chip: core disciplines": html.includes("Core disciplines"),
   };
 
   return {

@@ -300,20 +300,20 @@ export default function Hero() {
 
             {/* Floating stat chips */}
             <motion.div
-              className="absolute -left-4 top-10 hidden rounded-2xl glass px-4 py-3 shadow-soft sm:block"
+              className="stat-float absolute -left-4 top-10 hidden sm:block"
               animate={reduce ? {} : { y: [0, -12, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
-              <p className="font-display text-xl font-bold leading-none text-gradient">
+              <p className="stat-value text-xl leading-none">
                 {STATS[0].value}
               </p>
-              <p className="mt-1 text-[0.68rem] uppercase tracking-[0.14em] text-muted">
+              <p className="stat-label mt-1.5 text-[0.68rem] uppercase tracking-[0.14em]">
                 {STATS[0].label}
               </p>
             </motion.div>
 
             <motion.div
-              className="absolute -right-3 bottom-12 hidden rounded-2xl glass px-4 py-3 shadow-soft sm:block"
+              className="stat-float absolute -right-3 bottom-12 hidden sm:block"
               animate={reduce ? {} : { y: [0, 14, 0] }}
               transition={{
                 duration: 7,
@@ -322,16 +322,16 @@ export default function Hero() {
                 delay: 0.8,
               }}
             >
-              <p className="font-display text-xl font-bold leading-none text-gradient">
+              <p className="stat-value text-xl leading-none">
                 {STATS[1].value}
               </p>
-              <p className="mt-1 text-[0.68rem] uppercase tracking-[0.14em] text-muted">
+              <p className="stat-label mt-1.5 text-[0.68rem] uppercase tracking-[0.14em]">
                 {STATS[1].label}
               </p>
             </motion.div>
 
             <motion.div
-              className="absolute -right-2 top-6 hidden rounded-2xl glass px-4 py-3 shadow-soft lg:block"
+              className="stat-float absolute -right-2 top-6 hidden lg:block"
               animate={reduce ? {} : { y: [0, -10, 0] }}
               transition={{
                 duration: 5.5,
@@ -340,10 +340,10 @@ export default function Hero() {
                 delay: 1.4,
               }}
             >
-              <p className="font-display text-xl font-bold leading-none text-gradient">
+              <p className="stat-value text-xl leading-none">
                 {STATS[2].value}
               </p>
-              <p className="mt-1 text-[0.68rem] uppercase tracking-[0.14em] text-muted">
+              <p className="stat-label mt-1.5 text-[0.68rem] uppercase tracking-[0.14em]">
                 {STATS[2].label}
               </p>
             </motion.div>
