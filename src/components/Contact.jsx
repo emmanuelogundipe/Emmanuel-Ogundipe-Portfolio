@@ -70,11 +70,9 @@ const CHANNELS = [
   {
     id: "github",
     label: "GitHub",
-    // TODO: swap for your personal handle once the repo is public, e.g.
-    // href: "https://github.com/Big-E-Olamide"
-    handle: "Public repositories",
+    handle: "@emmanuelogundipe",
     hint: "Read READMEs and download releases — no sign-in needed",
-    href: "https://github.com/",
+    href: "https://github.com/emmanuelogundipe",
     Icon: GitHubIcon,
     from: "#B9C2CC",
     to: "#4A5560",

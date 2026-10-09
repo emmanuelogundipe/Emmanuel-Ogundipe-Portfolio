@@ -170,13 +170,14 @@ cause layout shift while loading.
 | --- | --- |
 | Name, summary, skill badges | `src/data/assets.js` → `profile` |
 | Projects, captions, images | `src/data/assets.js` → `workSections` |
-| **GitHub link** (currently the placeholder `https://github.com/`) | `src/components/Contact.jsx` → `CHANNELS` entry `id: "github"` |
+| **GitHub link** (`github.com/emmanuelogundipe`) | `src/components/Contact.jsx` → `CHANNELS` entry `id: "github"` |
 | Colours / radii / shadows | `src/index.css` → `:root` + `[data-theme="light"]` |
 | Section 03 dashboard data | `src/components/ProjectDashboard.jsx` (`GanttRows`, `MILESTONES`, `TASKS`, `BUSY`, `FLOW`) |
 | Fonts | the `<link>` in `index.html` + `--font-display` / `--font-sans` in `index.css` |
 
-> **Before you deploy:** swap the placeholder GitHub URL for your real handle
-> (search `TODO` — `src/components/Contact.jsx` is the only one).
+> **Live repo:** <https://github.com/emmanuelogundipe/emmanuels-portfolio> — the
+> GitHub contact button already points at that handle, so nothing else to
+> swap before you deploy.
 
 ---
 
