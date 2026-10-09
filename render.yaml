@@ -23,7 +23,7 @@ services:
   - type: web
     runtime: static
     name: emmanuels-portfolio
-    repo: https://github.com/emmanuelogundipe/emmanuels-portfolio
+    repo: https://github.com/emmanuelogundipe/Emmanuel-Ogundipe-Portfolio
     branch: main
 
     buildCommand: npm ci && npm run build

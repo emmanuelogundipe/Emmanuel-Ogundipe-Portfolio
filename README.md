@@ -176,7 +176,7 @@ cause layout shift while loading.
 | Section 03 dashboard data | `src/components/ProjectDashboard.jsx` (`GanttRows`, `MILESTONES`, `TASKS`, `BUSY`, `FLOW`) |
 | Fonts | the `<link>` in `index.html` + `--font-display` / `--font-sans` in `index.css` |
 
-> **Live repo:** <https://github.com/emmanuelogundipe/emmanuels-portfolio> — the
+> **Live repo:** <https://github.com/emmanuelogundipe/Emmanuel-Ogundipe-Portfolio> — the
 > GitHub contact button already points at that handle, so nothing else to
 > swap before you deploy.
 
@@ -189,7 +189,7 @@ cause layout shift while loading.
 The repo ships a [`render.yaml`](render.yaml) **Blueprint**, so this is one click:
 
 1. Sign in at <https://dashboard.render.com>.
-2. **New → Blueprint** → connect `emmanuelogundipe/emmanuels-portfolio` → **Apply**.
+2. **New → Blueprint** → connect `emmanuelogundipe/Emmanuel-Ogundipe-Portfolio` → **Apply**.
 3. Wait for the build, then open the `onrender.com` URL Render assigns.
 
 Render reads the Blueprint and sets everything itself:
