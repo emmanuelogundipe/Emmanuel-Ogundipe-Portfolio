@@ -190,6 +190,47 @@ body {
     border: 1px solid var(--c-line);
   }
 
+  /* --- Navigation bar: deliberately near-opaque -----------------------
+     `.glass-strong` is 8% white in dark mode, which is right for large
+     panels but lets page content and its text read straight through the
+     navbar while scrolling. This keeps the glassy edge treatment while
+     making the surface effectively solid. */
+  .nav-solid {
+    background: rgb(10 13 26 / 0.96);
+    border: 1px solid var(--c-line);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow:
+      0 12px 34px -20px rgb(0 0 0 / 0.95),
+      inset 0 1px 0 rgb(255 255 255 / 0.07);
+  }
+
+  [data-theme="light"] .nav-solid {
+    background: rgb(255 255 255 / 0.97);
+    box-shadow:
+      0 12px 34px -20px rgb(12 17 40 / 0.4),
+      inset 0 1px 0 rgb(255 255 255 / 0.9);
+  }
+
+  /* Soft fade under the bar so content dissolves instead of hard-clipping. */
+  .nav-scrim {
+    background: linear-gradient(
+      to bottom,
+      rgb(10 13 26 / 0.96) 0%,
+      rgb(10 13 26 / 0.72) 45%,
+      rgb(10 13 26 / 0) 100%
+    );
+  }
+
+  [data-theme="light"] .nav-scrim {
+    background: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 0.97) 0%,
+      rgb(255 255 255 / 0.7) 45%,
+      rgb(255 255 255 / 0) 100%
+    );
+  }
+
   /* --- Buttons --------------------------------------------------------- */
   .btn {
     display: inline-flex;

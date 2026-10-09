@@ -36,6 +36,11 @@ export function check() {
     "stat chip: design assets": html.includes("stat-value") && html.includes("Design &amp; brand assets"),
     "stat chip: IoT builds": html.includes("IoT systems built"),
     "stat chip: core disciplines": html.includes("Core disciplines"),
+    // Profile details
+    "location: Abuja, Nigeria": html.includes("Abuja, Nigeria"),
+    // `nav-scrim` is always rendered; `nav-solid` only applies after scroll,
+    // so assert on the one that is guaranteed to be in the markup.
+    "opaque navbar stylesheet": html.includes("nav-scrim"),
   };
 
   return {

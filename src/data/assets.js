@@ -20,7 +20,7 @@ export const profile = {
     "IoT Educator",
     "Technical Project Coordinator",
   ],
-  location: "Ado-Ekiti, Ekiti State, Nigeria",
+  location: "Abuja, Nigeria",
   institution: "Computer Science Graduate · Ekiti State University",
   summary:
     "I am a Computer Science graduate from Ekiti State University operating at the intersection of hardware, design, and STEM project execution. My work spans designing visual assets and UI layouts in Figma, developing and teaching hands-on IoT systems using Arduino microcontrollers, and leading technical project planning and operational schedules. Driven by a practical, systems-focused approach, I specialize in bridging technical hardware builds with clean visual design and clear project communication.",

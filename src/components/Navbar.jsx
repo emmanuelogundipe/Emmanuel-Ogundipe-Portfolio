@@ -52,11 +52,17 @@ export default function Navbar() {
         }`}
       >
         <div className="shell">
+          {/* Scrim under the bar so scrolling content never reads through it */}
+          <div
+            aria-hidden="true"
+            className={`pointer-events-none absolute inset-x-0 top-0 h-24 transition-opacity duration-300 nav-scrim ${
+              scrolled ? "opacity-100" : "opacity-0"
+            }`}
+          />
+
           <nav
-            className={`flex items-center justify-between gap-4 rounded-2xl px-3 py-2.5 transition-all duration-300 sm:px-4 ${
-              scrolled
-                ? "glass-strong shadow-soft"
-                : "border border-transparent"
+            className={`relative flex items-center justify-between gap-4 rounded-2xl px-3 py-2.5 transition-all duration-300 sm:px-4 ${
+              scrolled ? "nav-solid" : "border border-transparent"
             }`}
             aria-label="Primary"
           >
@@ -157,7 +163,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0, height: "auto" }}
                 exit={{ opacity: 0, y: -12, height: 0 }}
                 transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-2 overflow-hidden rounded-2xl glass-strong p-2 shadow-soft md:hidden"
+                className="nav-solid relative mt-2 overflow-hidden rounded-2xl p-2 md:hidden"
               >
                 <ul className="list-none p-0">
                   {LINKS.map((link, i) => (
