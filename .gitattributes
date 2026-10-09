@@ -1,0 +1,11 @@
+# Normalise line endings so the repo stays identical on Windows, macOS and Linux.
+* text=auto eol=lf
+
+# Binary assets — never touched by Git
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.pdf binary
+*.ico binary
+*.webp binary
+*.avif binary

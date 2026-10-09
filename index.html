@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07080f" />
+
+    <title>
+      Ogundipe Emmanuel Olamide — Visual & UI Designer · IoT Educator
+    </title>
+    <meta
+      name="description"
+      content="Portfolio of Ogundipe Emmanuel Olamide — Computer Science graduate from Ekiti State University working across visual & graphic design, UI design in Figma, hands-on IoT education with Arduino, and technical project coordination."
+    />
+    <meta name="author" content="Ogundipe Emmanuel Olamide" />
+    <meta
+      name="keywords"
+      content="Ogundipe Emmanuel Olamide, graphic designer, UI designer, Figma, Arduino, IoT educator, Raspberry Pi, project management, Ekiti State University"
+    />
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Ogundipe Emmanuel Olamide — Designer · IoT Educator"
+    />
+    <meta
+      property="og:description"
+      content="Visual design, UI layouts, hands-on IoT systems and technical project execution."
+    />
+    <meta property="og:image" content="assets/profile/portrait.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      // Apply the saved theme before first paint (no flash of the wrong theme).
+      (function () {
+        try {
+          var saved = localStorage.getItem("o-eo-theme");
+          var theme =
+            saved ||
+            (window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <!--
+      CSS image-sharpening filter (feConvolveMatrix). Applied to portfolio
+      thumbnails on hover and to the full-screen lightbox image so text and
+      UI edges stay crisp without re-exporting the source files.
+    -->
+    <svg class="pointer-events-none absolute h-0 w-0" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="crispen" color-interpolation-filters="sRGB" x="-5%" y="-5%" width="110%" height="110%">
+          <feConvolveMatrix
+            order="3"
+            preserveAlpha="true"
+            divisor="1"
+            bias="0"
+            kernelMatrix="-0.055 -0.055 -0.055  -0.055 1.22 -0.055  -0.055 -0.055 -0.055"
+          />
+        </filter>
+      </defs>
+    </svg>
+
+    <div id="root"></div>
+
+    <noscript>
+      <div style="padding: 2rem; font-family: system-ui, sans-serif">
+        <h1>Ogundipe Emmanuel Olamide</h1>
+        <p>
+          This portfolio uses JavaScript for its interactive galleries. Please enable
+          JavaScript, or email
+          <a href="mailto:emmanuelogundipe4@gmail.com">emmanuelogundipe4@gmail.com</a>.
+        </p>
+      </div>
+    </noscript>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

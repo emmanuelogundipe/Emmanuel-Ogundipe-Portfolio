@@ -1,0 +1,29 @@
+{
+  "name": "ogundipe-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Personal portfolio of Ogundipe Emmanuel Olamide — visual & UI design, IoT education and technical project management.",
+  "author": "Ogundipe Emmanuel Olamide",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "sync:assets": "node scripts/sync-assets.mjs",
+    "sync:assets:dry": "node scripts/sync-assets.mjs --dry",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "framer-motion": "^14.0.0",
+    "lucide-react": "^1.54.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.2",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.4"
+  }
+}
