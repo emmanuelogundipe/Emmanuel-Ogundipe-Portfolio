@@ -233,6 +233,14 @@ background-image: linear-gradient(145deg, rgb(var(--c-brand-rgb) / 0.34), rgb(va
 npm run build && grep -o '[^{}]*\.stat-float{[^}]*}' dist/assets/index-*.css
 ```
 
+**Another trap:** the `background` **shorthand resets `background-clip`**. If a
+rule sets `background-clip: text; color: transparent` and any later override
+re-declares `background`, the text stays transparent but stops being clipped to
+the glyphs — and the text disappears completely. This is why the profile stat
+chips use a **solid colour + `text-shadow`** instead of the gradient-clip
+technique. If you add a dark-mode override to `.text-gradient`, re-declare
+`background-clip: text` in it too.
+
 ---
 
 ## 🌐 Deployment
