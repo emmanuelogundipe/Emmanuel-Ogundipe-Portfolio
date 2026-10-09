@@ -5,7 +5,12 @@
  * paths. Every icon inherits `currentColor`.
  */
 
-/* eslint-disable react/prop-types */
+/**
+ * Brand marks.
+ * lucide-react v1 dropped third-party brand glyphs, so the WhatsApp,
+ * LinkedIn, X (Twitter) and GitHub marks are inlined here as optimised SVG
+ * paths. Every icon inherits `currentColor`.
+ */
 
 export function WhatsAppIcon({ className = "h-5 w-5" }) {
   return (

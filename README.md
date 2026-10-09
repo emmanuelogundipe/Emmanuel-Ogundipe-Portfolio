@@ -86,7 +86,8 @@ npm run dev          # http://localhost:5173
 | Script | Purpose |
 | --- | --- |
 | `npm run dev` | Dev server with hot module replacement |
-| `npm run build` | Render smoke test + production build → `dist/` |
+| `npm run build` | Lint + render smoke test + production build → `dist/` |
+| `npm run lint` | `no-undef` / `react/jsx-no-undef` scope checking |
 | `npm run smoke` | Render the whole app in Node and assert every section renders |
 | `npm run preview` | Serve the production build locally |
 | `npm run sync:assets` | Re-copy every `localPath` from `src/data/assets.js` |
@@ -249,18 +250,36 @@ npm run preview      # http://localhost:4173
 > Don't open `dist/index.html` with `file://` — ES modules need HTTP. Use
 > `npm run preview`.
 
-### `npm run smoke` — why it exists
+### Blank-page protection — `npm run lint` + `npm run smoke`
 
 A bundler will happily compile code that throws at runtime. A component
 referencing a variable from a sibling scope compiles fine, ships fine, deploys
 fine — and shows your visitor a **blank page**. That is not hypothetical: it
-happened here once, and the smoke test is the reason it can never happen
-silently again.
+happened here, once. Two independent guards now run inside `npm run build`:
 
-`scripts/smoke.mjs` renders the entire `<App />` in Node with lightweight
-browser stubs and asserts that the hero, all three sections, all 15 images and
-every contact link are present. It exits non-zero on failure, and
-`npm run build` runs it first — so **a blank page can never be deployed**.
+**1. `npm run lint`** — ESLint flat config with `no-undef` and
+`react/jsx-no-undef`. Re-introducing that exact bug produces:
+
+```
+170:11  error  'loop' is not defined  no-undef
+194:20  error  'loop' is not defined  no-undef
+✖ 2 problems (2 errors, 0 warnings)
+```
+
+**2. `npm run smoke`** — `scripts/smoke.mjs` renders the entire `<App />` in
+Node with lightweight browser stubs and asserts the hero, all three sections,
+all 15 images and every contact link are present:
+
+```
+✓ hero name renders      ✓ WhatsApp action link
+✓ section 01 renders     ✓ mailto action link
+✓ section 02 renders     ✓ GitHub handle
+✓ section 03 dashboard   ✓ CV / Resume download links
+2,439 tags · 15 images · 126,354 chars
+```
+
+Both exit non-zero on failure, so **a blank page cannot be built, let alone
+deployed**. Currently: `0 errors, 0 warnings`.
 
 ---
 
