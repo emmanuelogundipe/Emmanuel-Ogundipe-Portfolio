@@ -20,6 +20,19 @@
   --c-brand-2: #b06cff;
   --c-accent: #2ee6d6;
   --c-ember: #ff9f43;
+
+  /* Raw channels for alpha compositing.
+     IMPORTANT: always use `rgb(var(--c-brand-rgb) / 0.6)` rather than
+     `color-mix(in oklab, var(--c-brand) 60%, transparent)`. The Tailwind v4
+     minifier (Lightning CSS) cannot resolve color-mix() that references
+     custom properties — it silently drops the declaration or discards the
+     alpha, which breaks every shadow, glow and tinted border on the site. */
+  --c-brand-rgb: 124 108 255;
+  --c-brand-2-rgb: 176 108 255;
+  --c-accent-rgb: 46 230 214;
+  --c-ember-rgb: 255 159 67;
+  --c-ink-rgb: 238 241 251;
+
   --c-glass: rgb(255 255 255 / 0.045);
   --c-glass-strong: rgb(255 255 255 / 0.08);
   --c-shadow: 0 30px 70px -30px rgb(0 0 0 / 0.85);
@@ -42,6 +55,14 @@
   --c-brand-2: #8b3df0;
   --c-accent: #0d9d8f;
   --c-ember: #d4700f;
+
+  /* Light-mode channels (see the note in :root) */
+  --c-brand-rgb: 91 70 240;
+  --c-brand-2-rgb: 139 61 240;
+  --c-accent-rgb: 13 157 143;
+  --c-ember-rgb: 212 112 15;
+  --c-ink-rgb: 13 17 40;
+
   --c-glass: rgb(255 255 255 / 0.65);
   --c-glass-strong: rgb(255 255 255 / 0.85);
   --c-shadow: 0 28px 60px -34px rgb(20 26 60 / 0.45);
@@ -99,7 +120,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--c-brand) 70%, transparent);
+  background: rgb(var(--c-brand-rgb) / 0.7);
   color: #fff;
 }
 
@@ -202,12 +223,12 @@ body {
     background:
       linear-gradient(135deg, var(--c-brand) 0%, var(--c-brand-2) 100%);
     box-shadow:
-      0 14px 34px -12px color-mix(in oklab, var(--c-brand) 80%, transparent),
+      0 14px 34px -12px rgb(var(--c-brand-rgb) / 0.8),
       inset 0 1px 0 rgb(255 255 255 / 0.25);
   }
   .btn-primary:hover {
     box-shadow:
-      0 22px 44px -14px color-mix(in oklab, var(--c-brand) 90%, transparent),
+      0 22px 44px -14px rgb(var(--c-brand-rgb) / 0.9),
       inset 0 1px 0 rgb(255 255 255 / 0.35);
   }
 
@@ -339,17 +360,18 @@ body {
     position: relative;
     border-radius: 1rem;
     padding: 0.7rem 0.95rem;
-    border: 1px solid color-mix(in oklab, var(--c-brand) 40%, transparent);
-    background: linear-gradient(
+    border: 1px solid rgb(var(--c-brand-rgb) / 0.4);
+    background-color: var(--c-surface);
+    background-image: linear-gradient(
       145deg,
-      color-mix(in oklab, var(--c-brand) 14%, var(--c-surface)) 0%,
-      var(--c-surface) 65%
+      rgb(var(--c-brand-rgb) / 0.22) 0%,
+      rgb(var(--c-brand-rgb) / 0) 62%
     );
     backdrop-filter: blur(20px) saturate(190%);
     -webkit-backdrop-filter: blur(20px) saturate(190%);
     box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--c-brand) 20%, transparent),
-      0 0 26px -6px color-mix(in oklab, var(--c-brand) 50%, transparent),
+      0 0 0 1px rgb(var(--c-brand-rgb) / 0.2),
+      0 0 26px -6px rgb(var(--c-brand-rgb) / 0.5),
       0 18px 40px -20px rgb(0 0 0 / 0.85),
       inset 0 1px 0 rgb(255 255 255 / 0.1);
     transition:
@@ -358,31 +380,30 @@ body {
       transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* Dark mode: opaque core, brighter ring, stronger glow. */
+  /* Dark mode: brighter ring, stronger glow — the default glass treatment is
+     only 4.5% white and would otherwise vanish on a near-black canvas. */
   [data-theme="dark"] .stat-float {
-    border-color: color-mix(in oklab, var(--c-brand) 65%, transparent);
-    background: linear-gradient(
+    border-color: rgb(var(--c-brand-rgb) / 0.65);
+    background-color: #090c18;
+    background-image: linear-gradient(
       145deg,
-      color-mix(in oklab, var(--c-brand) 26%, #141a30) 0%,
-      #090c18 100%
+      rgb(var(--c-brand-rgb) / 0.34) 0%,
+      rgb(var(--c-brand-rgb) / 0) 70%
     );
     box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--c-brand) 40%, transparent),
-      0 0 30px -4px color-mix(in oklab, var(--c-brand) 75%, transparent),
-      0 0 70px -22px color-mix(in oklab, var(--c-accent) 60%, transparent),
+      0 0 0 1px rgb(var(--c-brand-rgb) / 0.4),
+      0 0 30px -4px rgb(var(--c-brand-rgb) / 0.75),
+      0 0 70px -22px rgb(var(--c-accent-rgb) / 0.6),
       0 20px 45px -22px rgb(0 0 0 / 0.95),
       inset 0 1px 0 rgb(255 255 255 / 0.16);
   }
 
-  .stat-float:hover {
-    border-color: color-mix(in oklab, var(--c-brand) 90%, transparent);
-  }
-
   [data-theme="dark"] .stat-float:hover {
+    border-color: rgb(var(--c-brand-rgb) / 0.9);
     box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--c-brand) 60%, transparent),
-      0 0 44px -2px color-mix(in oklab, var(--c-brand) 95%, transparent),
-      0 0 100px -24px color-mix(in oklab, var(--c-accent) 75%, transparent),
+      0 0 0 1px rgb(var(--c-brand-rgb) / 0.6),
+      0 0 44px -2px rgb(var(--c-brand-rgb) / 0.95),
+      0 0 100px -24px rgb(var(--c-accent-rgb) / 0.75),
       0 20px 45px -22px rgb(0 0 0 / 0.95),
       inset 0 1px 0 rgb(255 255 255 / 0.2);
   }
@@ -395,9 +416,7 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(
-      0 0 12px color-mix(in oklab, var(--c-brand) 85%, transparent)
-    );
+    filter: drop-shadow(0 0 12px rgb(var(--c-brand-rgb) / 0.85));
   }
 
   [data-theme="dark"] .stat-float .stat-value {
@@ -407,17 +426,17 @@ body {
       #cfc6ff 40%,
       #7ef2e6 100%
     );
-    filter: drop-shadow(0 0 14px color-mix(in oklab, var(--c-brand) 95%, transparent))
-      drop-shadow(0 0 30px color-mix(in oklab, var(--c-accent) 55%, transparent));
+    filter: drop-shadow(0 0 14px rgb(var(--c-brand-rgb) / 0.95))
+      drop-shadow(0 0 30px rgb(var(--c-accent-rgb) / 0.55));
   }
 
   .stat-float .stat-label {
-    color: color-mix(in oklab, var(--c-ink) 72%, transparent);
+    color: rgb(var(--c-ink-rgb) / 0.72);
     font-weight: 600;
   }
 
   [data-theme="dark"] .stat-float .stat-label {
-    color: color-mix(in oklab, #ffffff 82%, transparent);
+    color: rgb(255 255 255 / 0.82);
   }
 
   /* --- Decorative backgrounds ------------------------------------------ */

@@ -200,6 +200,41 @@ cause layout shift while loading.
 
 ---
 
+### ⚠️ Never use `color-mix()` with `var()` in this project
+
+Tailwind v4's minifier (Lightning CSS) **cannot resolve `color-mix()` that
+references custom properties**. It doesn't error — it silently drops the whole
+declaration, or discards the alpha. Both happened here and broke every glow,
+shadow and tinted border on the site while the CSS still "compiled".
+
+```css
+/* ✗ silently dropped — the background, glow and shadow vanish */
+border: 1px solid color-mix(in oklab, var(--c-brand) 40%, transparent);
+box-shadow: 0 0 30px -4px color-mix(in oklab, var(--c-brand) 75%, transparent);
+
+/* ✓ use the raw channel variables instead */
+border: 1px solid rgb(var(--c-brand-rgb) / 0.4);
+box-shadow: 0 0 30px -4px rgb(var(--c-brand-rgb) / 0.75);
+```
+
+Channel variables (`--c-brand-rgb`, `--c-brand-2-rgb`, `--c-accent-rgb`,
+`--c-ember-rgb`, `--c-ink-rgb`) are declared for both themes in `:root` and
+`[data-theme="light"]`. To tint a surface, layer a gradient over a solid
+`background-color` rather than mixing:
+
+```css
+background-color: #090c18;
+background-image: linear-gradient(145deg, rgb(var(--c-brand-rgb) / 0.34), rgb(var(--c-brand-rgb) / 0));
+```
+
+**After any CSS change, confirm the rule survived** — search the built file:
+
+```bash
+npm run build && grep -o '[^{}]*\.stat-float{[^}]*}' dist/assets/index-*.css
+```
+
+---
+
 ## 🌐 Deployment
 
 ### Render (static, global CDN, free)
