@@ -1,8 +1,10 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
   Cpu,
+  Eye,
   FileText,
   GraduationCap,
   MapPin,
@@ -13,6 +15,8 @@ import {
 
 import { documents, profile, profilePhoto } from "../data/assets.js";
 import { assetUrl } from "../lib/assets.js";
+import { PdfViewer } from "./DocumentViewer.jsx";
+import { AnimatePresence } from "framer-motion";
 
 /* Tone -> colour pairs for the four skill badges. */
 const TONE = {
@@ -37,33 +41,51 @@ const STATS = [
 ];
 
 /** A download button with the classic red PDF document mark. */
-function DocumentButton({ doc, variant = "ghost" }) {
+function DocumentButton({ doc, variant = "ghost", onView }) {
   return (
-    <a
-      href={assetUrl(doc.publicPath)}
-      download
-      className={`btn ${variant === "primary" ? "btn-primary" : "btn-ghost"} group/doc relative overflow-hidden`}
-      title={`${doc.label} (PDF)`}
-    >
-      <span className="relative z-10 grid h-8 w-8 place-items-center rounded-lg bg-rose-500/15 ring-1 ring-rose-400/40 transition-transform duration-300 group-hover/doc:scale-110">
-        <FileText className="h-4 w-4 text-rose-300" />
-        <span className="absolute -bottom-1.5 rounded-sm bg-rose-500 px-1 text-[0.42rem] font-bold tracking-wider text-white">
-          PDF
+    <div className="flex flex-wrap items-center gap-2">
+      <a
+        href={assetUrl(doc.publicPath)}
+        download
+        className={`btn ${variant === "primary" ? "btn-primary" : "btn-ghost"} group/doc relative overflow-hidden`}
+        title={`${doc.label} (PDF)`}
+      >
+        <span className="relative z-10 grid h-8 w-8 place-items-center rounded-lg bg-rose-500/15 ring-1 ring-rose-400/40 transition-transform duration-300 group-hover/doc:scale-110">
+          <FileText className="h-4 w-4 text-rose-300" />
+          <span className="absolute -bottom-1.5 rounded-sm bg-rose-500 px-1 text-[0.42rem] font-bold tracking-wider text-white">
+            PDF
+          </span>
         </span>
-      </span>
-      <span className="relative z-10 text-left leading-tight">
-        <span className="block">{doc.label}</span>
-        <span className="block text-[0.62rem] font-medium uppercase tracking-[0.14em] opacity-60">
-          {doc.sublabel.split(" · ")[0]}
+        <span className="relative z-10 text-left leading-tight">
+          <span className="block">{doc.label}</span>
+          <span className="block text-[0.62rem] font-medium uppercase tracking-[0.14em] opacity-60">
+            {doc.sublabel.split(" · ")[0]}
+          </span>
         </span>
-      </span>
-      <ArrowUpRight className="relative z-10 h-4 w-4 opacity-60 transition-transform duration-300 group-hover/doc:-translate-y-0.5 group-hover/doc:translate-x-0.5" />
-    </a>
+        <ArrowUpRight className="relative z-10 h-4 w-4 opacity-60 transition-transform duration-300 group-hover/doc:-translate-y-0.5 group-hover/doc:translate-x-0.5" />
+      </a>
+
+      <button
+        type="button"
+        onClick={() => onView(doc.id)}
+        className={`btn ${variant === "primary" ? "btn-ghost" : "btn-ghost"}`}
+        aria-haspopup="dialog"
+      >
+        <Eye className="h-4 w-4" />
+        <span className="text-left leading-tight">
+          <span className="block">View {doc.id === "cv" ? "CV" : "Résumé"}</span>
+          <span className="block text-[0.62rem] font-medium uppercase tracking-[0.14em] opacity-60">
+            Read in browser
+          </span>
+        </span>
+      </button>
+    </div>
   );
 }
 
 export default function Hero() {
   const reduce = useReducedMotion();
+  const [viewingId, setViewingId] = useState(null);
   const words = profile.name.split(" ");
 
   const container = {
@@ -213,7 +235,12 @@ export default function Hero() {
             className="mt-9 flex flex-wrap gap-3"
           >
             {documents.map((doc, i) => (
-              <DocumentButton key={doc.id} doc={doc} variant={i === 0 ? "primary" : "ghost"} />
+              <DocumentButton
+                key={doc.id}
+                doc={doc}
+                variant={i === 0 ? "primary" : "ghost"}
+                onView={setViewingId}
+              />
             ))}
             <a href="#work" className="btn btn-ghost">
               <ArrowDown className="h-4 w-4" />
@@ -323,6 +350,16 @@ export default function Hero() {
           </div>
         </motion.div>
       </div>
+
+      {/* Inline CV / Résumé preview */}
+      <AnimatePresence>
+        {viewingId && (
+          <PdfViewer
+            doc={documents.find((d) => d.id === viewingId)}
+            onClose={() => setViewingId(null)}
+          />
+        )}
+      </AnimatePresence>
     </header>
   );
 }

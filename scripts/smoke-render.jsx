@@ -22,6 +22,16 @@ export function check() {
     "CV download link": html.includes("ogundipe-emmanuel-olamide-cv.pdf"),
     "Resume download link": html.includes("ogundipe-emmanuel-olamide-resume.pdf"),
     "profile photo": html.includes("assets/profile/portrait.jpg"),
+    // Gallery grouping + filtering
+    "group: Brand & Marketing": html.includes("Brand &amp; Marketing"),
+    "group: App & Web UI": html.includes("App &amp; Web UI"),
+    "group: Identity & Editorial": html.includes("Identity &amp; Editorial"),
+    "group: Product & Print": html.includes("Product &amp; Print"),
+    "group: Hardware Builds": html.includes("Hardware Builds"),
+    "gallery filter chips": html.includes("All work"),
+    // CV / Resume preview
+    "CV view button": html.includes("View CV"),
+    "Resume view button": html.includes("View Résumé"),
   };
 
   return {

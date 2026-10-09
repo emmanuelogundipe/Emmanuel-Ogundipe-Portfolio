@@ -127,6 +127,22 @@ Each entry carries both a `localPath` (on this machine) and a `publicPath`
 `height`), then run `npm run sync:assets`. The grid, the lightbox and the
 counting badge update automatically.
 
+**Grouping and filtering:** each section also has a `groups` array that names
+its sub-categories and lists which items belong to them via `itemIds`. Add a new
+image and drop its id into a group (or leave it out — ungrouped items render
+under an automatic "Other work" heading, so an image can never silently vanish).
+
+```js
+groups: [
+  {
+    id: "brand",
+    label: "Brand & Marketing",
+    blurb: "Banners, adverts and promotional flyers produced for client campaigns.",
+    itemIds: ["design-01", "design-02", "design-03", "design-10"],
+  },
+],
+```
+
 **Serving from another machine:** because the site only ever references
 `publicPath` values through `assetUrl()`, you can drop the files into `public/`
 by hand and delete the `localPath` fields — nothing else changes.

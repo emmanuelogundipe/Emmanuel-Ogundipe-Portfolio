@@ -92,6 +92,32 @@ export const workSections = [
         text: "Organizing imported UI assets into a prototype flow within Figma.",
       },
     ],
+    groups: [
+      {
+        id: "brand",
+        label: "Brand & Marketing",
+        blurb: "Banners, adverts and promotional flyers produced for client campaigns.",
+        itemIds: ["design-01", "design-02", "design-03", "design-10"],
+      },
+      {
+        id: "ui",
+        label: "App & Web UI",
+        blurb: "Mobile app screens and e-commerce layouts, including AI-generated drafts refined by hand.",
+        itemIds: ["design-04", "design-06"],
+      },
+      {
+        id: "editorial",
+        label: "Identity & Editorial",
+        blurb: "Logo work, social creatives and long-form editorial poster design.",
+        itemIds: ["design-05", "design-07", "design-08"],
+      },
+      {
+        id: "print",
+        label: "Product & Print",
+        blurb: "Product visuals, price sheets and event flyers prepared for print.",
+        itemIds: ["design-09", "design-11", "design-12"],
+      },
+    ],
     items: [
       {
         id: "design-01",
@@ -256,6 +282,20 @@ export const workSections = [
       {
         title: "STEM Hardware Building",
         text: "Designing physical and electronic prototypes for hands-on technical projects.",
+      },
+    ],
+    groups: [
+      {
+        id: "builds",
+        label: "Hardware Builds",
+        blurb: "Breadboard prototypes, sensor arrays and microcontroller bench work.",
+        itemIds: ["iot-01"],
+      },
+      {
+        id: "teaching",
+        label: "Training & Demonstrations",
+        blurb: "Live STEM sessions where the hardware is explained and demonstrated.",
+        itemIds: ["iot-02"],
       },
     ],
     items: [

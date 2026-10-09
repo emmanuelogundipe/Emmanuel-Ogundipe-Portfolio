@@ -109,7 +109,7 @@ export default function SectionShell({
                 Click any image to expand
               </span>
             </div>
-            <GalleryGrid items={items} />
+            <GalleryGrid section={section} />
           </div>
         )}
       </div>
