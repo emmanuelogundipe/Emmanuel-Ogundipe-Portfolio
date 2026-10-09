@@ -8,8 +8,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run smoke && vite build",
     "preview": "vite preview",
+    "smoke": "vite build --ssr scripts/smoke-render.jsx --outDir .smoke-out --emptyOutDir --logLevel error && node scripts/smoke.mjs",
     "sync:assets": "node scripts/sync-assets.mjs",
     "sync:assets:dry": "node scripts/sync-assets.mjs --dry",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\""

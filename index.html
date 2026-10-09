@@ -41,22 +41,13 @@
       rel="stylesheet"
     />
 
-    <script>
-      // Apply the saved theme before first paint (no flash of the wrong theme).
-      (function () {
-        try {
-          var saved = localStorage.getItem("o-eo-theme");
-          var theme =
-            saved ||
-            (window.matchMedia("(prefers-color-scheme: light)").matches
-              ? "light"
-              : "dark");
-          document.documentElement.setAttribute("data-theme", theme);
-        } catch (e) {
-          document.documentElement.setAttribute("data-theme", "dark");
-        }
-      })();
-    </script>
+    <!--
+      Applies the saved theme before first paint (no flash of the wrong theme).
+      Kept in an external file rather than inline: the strict
+      `script-src 'self'` Content-Security-Policy in render.yaml blocks inline
+      <script> blocks, which would silently disable saved-theme persistence.
+    -->
+    <script src="theme-init.js"></script>
   </head>
 
   <body>

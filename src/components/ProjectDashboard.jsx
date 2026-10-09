@@ -133,7 +133,7 @@ const NODES = [
   { x: 118, y: 26 },
 ];
 
-function TargetCard({ start }) {
+function TargetCard({ start, loop }) {
   return (
     <svg viewBox="0 0 132 96" className="h-auto w-full" role="img" aria-label="Animated project target nodes">
       {/* connections */}
@@ -221,7 +221,7 @@ function TargetCard({ start }) {
 
 const FLOW = ["Brief", "Design", "Build", "Ship"];
 
-function WorkflowCard({ start }) {
+function WorkflowCard({ start, loop }) {
   return (
     <svg viewBox="0 0 132 72" className="h-auto w-full" role="img" aria-label="Animated workflow diagram">
       <line x1="14" y1="36" x2="118" y2="36" stroke="var(--c-line)" strokeWidth="1.4" />
@@ -544,7 +544,7 @@ export default function ProjectDashboard() {
           title="Target nodes"
           caption="Milestone dependencies mapped node by node."
         >
-          <TargetCard start={start} />
+          <TargetCard start={start} loop={loop} />
         </DashCard>
 
         <DashCard
@@ -554,7 +554,7 @@ export default function ProjectDashboard() {
           title="Workflow pipeline"
           caption="A tracked packet moving through the delivery pipeline."
         >
-          <WorkflowCard start={start} />
+          <WorkflowCard start={start} loop={loop} />
         </DashCard>
 
         <DashCard

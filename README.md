@@ -86,7 +86,8 @@ npm run dev          # http://localhost:5173
 | Script | Purpose |
 | --- | --- |
 | `npm run dev` | Dev server with hot module replacement |
-| `npm run build` | Production build → `dist/` |
+| `npm run build` | Render smoke test + production build → `dist/` |
+| `npm run smoke` | Render the whole app in Node and assert every section renders |
 | `npm run preview` | Serve the production build locally |
 | `npm run sync:assets` | Re-copy every `localPath` from `src/data/assets.js` |
 | `npm run sync:assets:dry` | Print the copy plan without touching files |
@@ -247,6 +248,19 @@ npm run preview      # http://localhost:4173
 
 > Don't open `dist/index.html` with `file://` — ES modules need HTTP. Use
 > `npm run preview`.
+
+### `npm run smoke` — why it exists
+
+A bundler will happily compile code that throws at runtime. A component
+referencing a variable from a sibling scope compiles fine, ships fine, deploys
+fine — and shows your visitor a **blank page**. That is not hypothetical: it
+happened here once, and the smoke test is the reason it can never happen
+silently again.
+
+`scripts/smoke.mjs` renders the entire `<App />` in Node with lightweight
+browser stubs and asserts that the hero, all three sections, all 15 images and
+every contact link are present. It exits non-zero on failure, and
+`npm run build` runs it first — so **a blank page can never be deployed**.
 
 ---
 

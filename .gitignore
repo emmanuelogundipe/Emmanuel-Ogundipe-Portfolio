@@ -50,6 +50,7 @@ build/
 out/
 .vite/
 .cache/
+.smoke-out/
 *.tsbuildinfo
 next/
 .nuxt/
