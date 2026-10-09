@@ -13,7 +13,7 @@
 services:
   - type: web
     runtime: static
-    name: emmanuels-portfolio
+    name: ogundipe-portfolio
     repo: https://github.com/emmanuelogundipe/emmanuels-portfolio
     branch: main
 
