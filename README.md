@@ -29,6 +29,7 @@ ogundipe-portfolio/
 ├─ LICENSE                        # MIT — allows public reuse
 ├─ README.md
 ├─ SECURITY.md                    # secret-handling + public-access guidelines
+├─ render.yaml                    # Render Blueprint (static site + headers)
 ├─ index.html                     # shell, fonts, theme bootstrap, SVG sharpen filter
 ├─ vite.config.js                 # relative base ('./') + Tailwind plugin
 ├─ package.json
@@ -182,6 +183,32 @@ cause layout shift while loading.
 ---
 
 ## 🌐 Deployment
+
+### Render (static, global CDN, free)
+
+The repo ships a [`render.yaml`](render.yaml) **Blueprint**, so this is one click:
+
+1. Sign in at <https://dashboard.render.com>.
+2. **New → Blueprint** → connect `emmanuelogundipe/emmanuels-portfolio` → **Apply**.
+3. Wait for the build, then open the `onrender.com` URL Render assigns.
+
+Render reads the Blueprint and sets everything itself:
+
+| Setting | Value |
+| --- | --- |
+| Type / runtime | `web` / `static` (CDN-hosted, no server) |
+| Build command | `npm ci && npm run build` |
+| Publish path | `./dist` |
+| Node | `22.12.0` (pinned — Vite 8 needs `^20.19 \|\| >=22.12`) |
+| Auto-deploy | on every commit to `main` |
+| Headers | CSP, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, cache rules |
+
+Customise it in the repo or the dashboard — e.g. add a domain under the
+service's **Settings → Custom Domains**.
+
+> The Blueprint intentionally skips `npm run sync:assets`: that script reads
+> Windows paths from `src/data/assets.js`, and the images/PDFs it copies are
+> already committed under `public/`.
 
 ### Vercel (recommended — instant global CDN)
 

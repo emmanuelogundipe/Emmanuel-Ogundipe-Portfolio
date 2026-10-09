@@ -1,0 +1,83 @@
+# ---------------------------------------------------------------------------
+#  Render Blueprint — https://render.com/docs/blueprint-spec
+#  Deploy: Render Dashboard → New → Blueprint → select this repo → Apply
+# ---------------------------------------------------------------------------
+#  This is a pure static build (Vite → dist/), so Render serves it from its
+#  global CDN. No server, no environment secrets, no cost.
+#
+#  NOTE: `npm run sync:assets` is deliberately NOT part of the build. It reads
+#  Windows paths from src/data/assets.js. The images and PDFs it would copy
+#  are already committed under public/, so the build is self-contained.
+# ---------------------------------------------------------------------------
+
+services:
+  - type: web
+    runtime: static
+    name: emmanuels-portfolio
+    repo: https://github.com/emmanuelogundipe/emmanuels-portfolio
+    branch: main
+
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    autoDeployTrigger: commit
+
+    # Vite 8 requires Node ^20.19.0 || >=22.12.0 — pin it so Render never
+    # defaults to an older runtime and fails the build.
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0
+
+    # Only rebuild when something that affects the site actually changes.
+    buildFilter:
+      paths:
+        - src/**
+        - public/**
+        - scripts/**
+        - index.html
+        - package.json
+        - package-lock.json
+        - vite.config.js
+      ignoredPaths:
+        - README.md
+        - LICENSE
+        - SECURITY.md
+
+    headers:
+      # Hashed JS/CSS + portfolio images. Not `immutable` on purpose: the
+      # images live at stable URLs, so a replaced photo must not be cached
+      # for a year. `must-revalidate` keeps it correct and still fast.
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=604800, must-revalidate
+
+      - path: /documents/*
+        name: Cache-Control
+        value: public, max-age=3600, must-revalidate
+
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Permissions-Policy
+        value: geolocation=(), microphone=(), camera=()
+
+      # 'unsafe-inline' is required for styles only — React and Framer Motion
+      # set inline style attributes. Scripts remain locked to same-origin.
+      - path: /*
+        name: Content-Security-Policy
+        value: >-
+          default-src 'self';
+          script-src 'self';
+          style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+          font-src 'self' https://fonts.gstatic.com;
+          img-src 'self' data: blob:;
+          connect-src 'self';
+          base-uri 'self';
+          form-action 'self';
+          frame-ancestors 'self'
