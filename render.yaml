@@ -8,12 +8,21 @@
 #  NOTE: `npm run sync:assets` is deliberately NOT part of the build. It reads
 #  Windows paths from src/data/assets.js. The images and PDFs it would copy
 #  are already committed under public/, so the build is self-contained.
+#  IMPORTANT — read before clicking Apply:
+#  Render derives the onrender.com subdomain from the name below, and names
+#  must be unique per account. If a Static Site named `emmanuels-portfolio`
+#  already exists in your workspace (e.g. an older, unrelated page), this
+#  Apply will FAIL with a name conflict.
+#  Free the name first: Render dashboard → Static Sites → emmanuels-portfolio
+#  → Settings → rename it or delete it (Settings → Danger Zone).
+#  To confirm what is currently holding it, load
+#  https://emmanuels-portfolio.onrender.com in a private window.
 # ---------------------------------------------------------------------------
 
 services:
   - type: web
     runtime: static
-    name: ogundipe-portfolio
+    name: emmanuels-portfolio
     repo: https://github.com/emmanuelogundipe/emmanuels-portfolio
     branch: main
 
