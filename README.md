@@ -120,7 +120,7 @@ Each entry carries both a `localPath` (on this machine) and a `publicPath`
 | 11 | `…\Downloads\Frame 98 (1).png` | `assets/work/design/independence-discount-sheet.png` |
 | 12 | `…\Downloads\Odyssey design (5).png` | `assets/work/design/odyssey-summer-flyer.png` |
 | 13 | `…\Pictures\WhatsApp Image 2026-09-16 at 10.11.51.jpeg` | `assets/work/iot/arduino-prototype-bench.jpg` |
-| 14 | `…\Pictures\WhatsApp Image 2026-10-08 at 09.38.58.jpeg` | `assets/work/iot/greenhouse-gases-demo.jpg` |
+| 14 | `…\Pictures\WhatsApp Image 2026-10-08 at 09.38.58.jpeg` | `assets/work/iot/raspberry-pi-iot-program.jpg` |
 
 **Adding or replacing work:** edit the `items` array for the relevant section in
 `src/data/assets.js` (title, caption, tags, `publicPath`, `localPath`, `width`,

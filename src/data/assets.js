@@ -269,7 +269,7 @@ export const workSections = [
     kicker: "IoT Educator",
     title: "Microcontrollers, sensors & hands-on STEM builds",
     blurb:
-      "Building, programming and teaching physical computing systems — from breadboard prototypes to greenhouse monitoring.",
+      "Building, programming and teaching physical computing systems — from breadboard prototypes to Raspberry Pi programs walked through with participants.",
     deliverables: [
       {
         title: "Microcontroller Integration",
@@ -293,8 +293,8 @@ export const workSections = [
       },
       {
         id: "teaching",
-        label: "Training & Demonstrations",
-        blurb: "Live STEM sessions where the hardware is explained and demonstrated.",
+        label: "Programs & Participant Sessions",
+        blurb: "Live sessions where the Raspberry Pi IoT program is explained to participants, step by step.",
         itemIds: ["iot-02"],
       },
     ],
@@ -313,11 +313,11 @@ export const workSections = [
       },
       {
         id: "iot-02",
-        title: "Greenhouse Gases — STEM Demonstration",
+        title: "IoT with Raspberry Pi — Participant Session",
         caption:
-          "Presenting an IoT-based greenhouse-gas monitoring system at an exhibition booth, explaining the live sensor dashboard to visitors.",
-        tags: ["IoT", "Teaching", "Exhibition"],
-        publicPath: "assets/work/iot/greenhouse-gases-demo.jpg",
+          "Running a Raspberry Pi IoT program and walking participants through it — explaining the hardware, the code behind it, and the live sensor readings from the setup.",
+        tags: ["Raspberry Pi", "IoT", "Participants"],
+        publicPath: "assets/work/iot/raspberry-pi-iot-program.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.38.58.jpeg",
         width: 810,

@@ -28,6 +28,8 @@ export function check() {
     "group: Identity & Editorial": html.includes("Identity &amp; Editorial"),
     "group: Product & Print": html.includes("Product &amp; Print"),
     "group: Hardware Builds": html.includes("Hardware Builds"),
+    "group: Participant Sessions": html.includes("Programs &amp; Participant Sessions"),
+    "item: Raspberry Pi IoT program": html.includes("Raspberry Pi"),
     "gallery filter chips": html.includes("All work"),
     // CV / Resume preview
     "CV view button": html.includes("View CV"),
