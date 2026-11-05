@@ -26,6 +26,7 @@ export default function GalleryGrid({ section }) {
   const [active, setActive] = useState("all");
 
   const minimal = Boolean(section.compactTitles);
+  const hideTitles = Boolean(section.hideTitles);
 
   const images = useMemo(
     () => section.items.filter((item) => item.kind !== "link"),
@@ -67,6 +68,7 @@ export default function GalleryGrid({ section }) {
       all={images}
       onOpen={openLightbox}
       minimal={minimal}
+      hideTitle={hideTitles}
       reduce={reduce}
     />
   );
@@ -146,7 +148,7 @@ export default function GalleryGrid({ section }) {
 
 /* -------------------------------------------------------------------------- */
 
-function GalleryTile({ item, index, order, all, onOpen, minimal, reduce }) {
+function GalleryTile({ item, index, order, all, onOpen, minimal, hideTitle, reduce }) {
   const entrance = {
     initial: reduce ? { opacity: 0 } : { opacity: 0, y: 34, scale: 0.96 },
     whileInView: { opacity: 1, y: 0, scale: 1 },
@@ -230,12 +232,14 @@ function GalleryTile({ item, index, order, all, onOpen, minimal, reduce }) {
         />
 
         {/* Hover title bar (glass) */}
-        <span className="media-caption absolute inset-x-0 bottom-0 z-[2] flex items-center justify-between gap-2 rounded-b-2xl border-x-0 border-b-0 px-3 py-2.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-          <span className="text-xs font-semibold leading-tight text-white">
-            {item.title}
+        {!hideTitle && (
+          <span className="media-caption absolute inset-x-0 bottom-0 z-[2] flex items-center justify-between gap-2 rounded-b-2xl border-x-0 border-b-0 px-3 py-2.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+            <span className="text-xs font-semibold leading-tight text-white">
+              {item.title}
+            </span>
+            <Expand className="h-4 w-4 shrink-0 text-white/80" />
           </span>
-          <Expand className="h-4 w-4 shrink-0 text-white/80" />
-        </span>
+        )}
 
         {/* Zoom hint chip */}
         <span className="absolute right-3 top-3 z-[2] grid h-9 w-9 place-items-center rounded-full bg-black/45 text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:scale-110 group-hover:opacity-100 group-focus-visible:opacity-100">
@@ -258,7 +262,7 @@ function GalleryTile({ item, index, order, all, onOpen, minimal, reduce }) {
       </button>
 
       {/* Caption below the tile */}
-      {minimal ? (
+      {hideTitle ? null : minimal ? (
         <p className="mt-2.5 px-0.5 font-display text-sm font-semibold tracking-tight">
           {item.title}
         </p>

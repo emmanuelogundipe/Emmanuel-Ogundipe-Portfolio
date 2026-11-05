@@ -279,7 +279,7 @@ export const workSections = [
     blurb:
       "Building, programming and teaching physical computing systems — ESP-based smart builds, Arduino prototypes and STEM sessions run with real participants.",
     galleryTitle: "Build log",
-    compactTitles: true,
+    hideTitles: true,
     highlights: [
       {
         id: "solar",

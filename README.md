@@ -142,7 +142,9 @@ counting badge update automatically.
 undivided grid with no filter bar — that is how **Designs** is set up. Add a
 `groups` array (`{ id, label, blurb, itemIds }`) only when you want sub-sections
 and filter chips. Setting `compactTitles: true` strips tiles down to the title
-alone (no index number, no caption, no tag chips).
+alone (no index number, no caption, no tag chips); `hideTitles: true` removes the
+title entirely from the tile (used by the IoT build log) while keeping the
+descriptive `alt` text for screen readers.
 
 **Serving from another machine:** because the site only ever references
 `publicPath` values through `assetUrl()`, you can drop the files into `public/`
