@@ -13,32 +13,49 @@ export function check() {
 
   const assertions = {
     "hero name renders": html.includes("Ogundipe"),
-    "section 01 renders": html.includes("Visual, Graphic"),
-    "section 02 renders": html.includes("IoT Educator"),
-    "section 03 dashboard": html.includes("Milestone progression"),
+    // ---- Three portfolio sections -------------------------------------
+    "section 01: Designs": html.includes("Designs"),
+    "section 02: IoT / Robotics & STEM": html.includes("IoT / Robotics &amp; STEM"),
+    "section 03: AI-Assisted Pro": html.includes("AI-Assisted Pro"),
+    "dashboard still renders": html.includes("Milestone progression"),
+    // ---- Designs: flat gallery, minimal titles ------------------------
+    "design title: Logo Design": html.includes("Logo Design"),
+    "design title: AI-Assisted UI Concept": html.includes("AI-Assisted UI Concept"),
+    "design title: UI design in a mock-up": html.includes("UI design in a mock-up"),
+    "design title: design": html.includes(">design<"),
+    "figma prototype link": html.includes(
+      "figma.com/make/4QotzUo6xyL4RoZU3P3sDB",
+    ),
+    "flat gallery (no sub-sections)": !html.includes("Brand &amp; Marketing"),
+    "no filter chips": !html.includes("All work"),
+    "logo image shipped": html.includes("assets/work/design/logo-design.jpg"),
+    // ---- IoT / Robotics & STEM ---------------------------------------
+    "IoT highlight: solar house": html.includes("Smart Solar House project"),
+    "IoT highlight: Arduino Uno": html.includes("Arduino Uno"),
+    "IoT highlight: STEM projects": html.includes("STEM projects"),
+    "IoT photo kept": html.includes("raspberry-pi-iot-program.jpg"),
+    "Arduino photo removed": !html.includes("arduino-prototype-bench"),
+    // ---- AI-Assisted Pro ----------------------------------------------
+    "FCET portal link": html.includes("fcet-constitutional-review.onrender.com"),
+    "Odyssey scheduler link": html.includes("odyssey-scheduler.onrender.com/login"),
+    "flow previews are abstract": html.includes("Flow previews only"),
+    "no embedded portal content": !html.includes("<iframe"),
+    // ---- Contact actions ---------------------------------------------
     "WhatsApp action link": html.includes("wa.me/2349117639108"),
     "mailto action link": html.includes("mailto:emmanuelogundipe4@gmail.com"),
     "GitHub handle": html.includes("github.com/emmanuelogundipe"),
+    "footer admin button": html.includes("Admin"),
+    "removed build credit": !html.includes("React + Vite"),
+    // ---- Documents ----------------------------------------------------
     "CV download link": html.includes("ogundipe-emmanuel-olamide-cv.pdf"),
     "Resume download link": html.includes("ogundipe-emmanuel-olamide-resume.pdf"),
-    "profile photo": html.includes("assets/profile/portrait.jpg"),
-    // Gallery grouping + filtering
-    "group: Brand & Marketing": html.includes("Brand &amp; Marketing"),
-    "group: App & Web UI": html.includes("App &amp; Web UI"),
-    "group: Identity & Editorial": html.includes("Identity &amp; Editorial"),
-    "group: Product & Print": html.includes("Product &amp; Print"),
-    "group: Hardware Builds": html.includes("Hardware Builds"),
-    "group: Participant Sessions": html.includes("Programs &amp; Participant Sessions"),
-    "item: Raspberry Pi IoT program": html.includes("Raspberry Pi"),
-    "gallery filter chips": html.includes("All work"),
-    // CV / Resume preview
     "CV view button": html.includes("View CV"),
     "Resume view button": html.includes("View Résumé"),
-    // Floating stat chips beside the profile photo
-    "stat chip: design assets": html.includes("stat-value") && html.includes("Design &amp; brand assets"),
-    "stat chip: IoT builds": html.includes("IoT systems built"),
+    // ---- Identity -----------------------------------------------------
+    "profile photo": html.includes("assets/profile/portrait.jpg"),
+    "stat chip: design assets": html.includes("Design &amp; brand assets"),
+    "stat chip: IoT builds": html.includes("IoT &amp; STEM builds"),
     "stat chip: core disciplines": html.includes("Core disciplines"),
-    // Profile details
     "location: Abuja, Nigeria": html.includes("Abuja, Nigeria"),
     // `nav-scrim` is always rendered; `nav-solid` only applies after scroll,
     // so assert on the one that is guaranteed to be in the markup.

@@ -6,7 +6,8 @@ import { Eyebrow, Reveal } from "./Reveal.jsx";
 
 /**
  * SectionShell — the shared layout for every portfolio section:
- * numbered header, deliverable cards and (optionally) an image gallery.
+ * numbered header, optional deliverable cards, optional children and
+ * (optionally) an image gallery.
  */
 export default function SectionShell({
   section,
@@ -15,7 +16,19 @@ export default function SectionShell({
   showCount = true,
 }) {
   const reduce = useReducedMotion();
-  const { index, kicker, title, blurb, deliverables, items } = section;
+  const { index, kicker, title, blurb, deliverables, items, projects } = section;
+
+  const itemCount = items?.length ?? 0;
+  const projectCount = projects?.length ?? 0;
+  const count = itemCount || projectCount;
+
+  const countLabel = itemCount
+    ? "Projects documented below"
+    : projectCount
+      ? "Live applications below"
+      : "Live animated dashboard below";
+
+  const galleryHeading = section.galleryTitle || "Project gallery";
 
   return (
     <section id={section.id} className="scroll-mt-28 py-20 sm:py-28">
@@ -52,22 +65,18 @@ export default function SectionShell({
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                 className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand to-brand-2 text-white"
               >
-                {items?.length ? (
+                {count ? (
                   <Images className="h-5 w-5" />
                 ) : (
                   <Sparkles className="h-5 w-5" />
                 )}
               </motion.span>
               <div>
-                {showCount && items?.length > 0 && (
-                  <p className="font-display text-2xl font-bold leading-none">
-                    {items.length}
-                  </p>
+                {showCount && count > 0 && (
+                  <p className="font-display text-2xl font-bold leading-none">{count}</p>
                 )}
                 <p className="mt-1 text-xs uppercase tracking-[0.16em] text-muted">
-                  {items?.length
-                    ? "Projects documented below"
-                    : "Live animated dashboard below"}
+                  {countLabel}
                 </p>
               </div>
             </div>
@@ -75,35 +84,41 @@ export default function SectionShell({
         </div>
 
         {/* Deliverables */}
-        <ul className="mt-12 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
-          {deliverables.map((d, i) => (
-            <Reveal
-              key={d.title}
-              as="li"
-              delay={0.06 * i}
-              y={24}
-              className="group relative overflow-hidden rounded-2xl glass p-5 shadow-soft transition-colors duration-300 hover:border-line-strong"
-            >
-              <span className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-brand/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
-              <span className="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-brand">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-3 font-display text-base font-semibold leading-snug">
-                {d.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{d.text}</p>
-            </Reveal>
-          ))}
-        </ul>
+        {deliverables?.length > 0 && (
+          <ul
+            className={`mt-12 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 ${
+              deliverables.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"
+            }`}
+          >
+            {deliverables.map((d, i) => (
+              <Reveal
+                key={d.title}
+                as="li"
+                delay={0.06 * i}
+                y={24}
+                className="group relative overflow-hidden rounded-2xl glass p-5 shadow-soft transition-colors duration-300 hover:border-line-strong"
+              >
+                <span className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-brand/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+                <span className="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-brand">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-3 font-display text-base font-semibold leading-snug">
+                  {d.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{d.text}</p>
+              </Reveal>
+            ))}
+          </ul>
+        )}
 
         {children}
 
         {/* Gallery */}
-        {items?.length > 0 && (
+        {itemCount > 0 && (
           <div className="mt-14">
-            <div className="mb-6 flex items-center justify-between gap-4">
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
               <h3 className="font-display text-lg font-semibold tracking-tight sm:text-xl">
-                Project gallery
+                {galleryHeading}
               </h3>
               <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-muted">
                 Click any image to expand

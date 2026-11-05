@@ -7,6 +7,10 @@
  *  so the site always serves from its own folder (Vercel / GitHub Pages safe).
  *
  *  Run `npm run sync:assets` after editing or re-exporting any image.
+ *
+ *  Gallery items may also be pure links (`kind: "link"` + `href`) — those are
+ *  rendered as a call-to-action tile and never enter the image lightbox, so
+ *  they need no `localPath` / `publicPath`.
  * ---------------------------------------------------------------------------
  */
 
@@ -67,21 +71,26 @@ export const documents = [
 
 /** Portfolio sections ------------------------------------------------- */
 export const workSections = [
+  /* ------------------------------------------------------------------ */
+  /*  01 · Designs — one flat gallery, no sub-grouping                    */
+  /* ------------------------------------------------------------------ */
   {
     id: "design",
     index: "01",
-    kicker: "Visual, Graphic & UI Design",
-    title: "Brand systems, marketing visuals & interface screens",
+    kicker: "Designs",
+    title: "UI Design, brand visuals & campaign work",
     blurb:
-      "End-to-end visual production — from raw idea and AI-assisted layout generation to a polished, client-ready Figma file.",
+      "A single, flat archive of visual work — app and web interfaces, social creatives, flyers and print pieces. Every piece is produced end to end, from the first layout to the client-ready file.",
+    galleryTitle: "Design",
+    compactTitles: true,
     deliverables: [
+      {
+        title: "UI Design",
+        text: "Designing app and web screens, layouts, and page mock-ups.",
+      },
       {
         title: "Visual Asset Creation",
         text: "Producing custom graphics, banners, and digital marketing materials.",
-      },
-      {
-        title: "Static UI Page Design",
-        text: "Designing visual interface screens, layouts, and page mockups.",
       },
       {
         title: "AI-Assisted UI Generation",
@@ -92,39 +101,34 @@ export const workSections = [
         text: "Organizing imported UI assets into a prototype flow within Figma.",
       },
     ],
-    groups: [
-      {
-        id: "brand",
-        label: "Brand & Marketing",
-        blurb: "Banners, adverts and promotional flyers produced for client campaigns.",
-        itemIds: ["design-01", "design-02", "design-03", "design-10"],
-      },
-      {
-        id: "ui",
-        label: "App & Web UI",
-        blurb: "Mobile app screens and e-commerce layouts, including AI-generated drafts refined by hand.",
-        itemIds: ["design-04", "design-06"],
-      },
-      {
-        id: "editorial",
-        label: "Identity & Editorial",
-        blurb: "Logo work, social creatives and long-form editorial poster design.",
-        itemIds: ["design-05", "design-07", "design-08"],
-      },
-      {
-        id: "print",
-        label: "Product & Print",
-        blurb: "Product visuals, price sheets and event flyers prepared for print.",
-        itemIds: ["design-09", "design-11", "design-12"],
-      },
-    ],
     items: [
       {
+        id: "design-13",
+        title: "Logo Design",
+        caption: "",
+        alt: "Logo design — brand mark presented on a dark background",
+        tags: [],
+        publicPath: "assets/work/design/logo-design.jpg",
+        localPath: "C:\\Users\\itoha\\Downloads\\Logo Design.jpeg",
+        width: 866,
+        height: 847,
+      },
+      {
+        id: "design-14",
+        kind: "link",
+        title: "AI-Assisted UI Concept",
+        caption: "",
+        alt: "",
+        tags: [],
+        href: "https://www.figma.com/make/4QotzUo6xyL4RoZU3P3sDB/Agrofreeze-Storage-Platform?t=ruDwcXRdvhkcrjXl-20&fullscreen=1",
+        linkLabel: "Open the Figma prototype",
+      },
+      {
         id: "design-01",
-        title: "Quick Breakfast — Promo Banner",
-        caption:
-          "Warm café-toned promotional banner with product strip, opening hours and call-to-action for a breakfast brand.",
-        tags: ["Banner", "Brand", "Marketing"],
+        title: "design",
+        caption: "",
+        alt: "Warm café-toned promotional banner for a breakfast brand, with a product strip, opening hours and a call to action.",
+        tags: [],
         publicPath: "assets/work/design/quick-breakfast-banner.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.40.32.jpeg",
@@ -133,10 +137,10 @@ export const workSections = [
       },
       {
         id: "design-02",
-        title: "AFOD — Services Flyer",
-        caption:
-          "Purple-toned service flyer with circular product cut-outs and a stacked list of tailoring, sales and pension services.",
-        tags: ["Flyer", "Layout", "Services"],
+        title: "design",
+        caption: "",
+        alt: "Purple-toned services flyer with circular product cut-outs and a stacked list of tailoring, sales and pension services.",
+        tags: [],
         publicPath: "assets/work/design/afod-services-flyer.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.39.03.jpeg",
@@ -145,10 +149,10 @@ export const workSections = [
       },
       {
         id: "design-03",
-        title: "Niyi Autos — Automotive Ad",
-        caption:
-          "Dark, high-contrast vehicle catalogue advert built around a single call-to-action button.",
-        tags: ["Ad Creative", "CTA", "Dark UI"],
+        title: "design",
+        caption: "",
+        alt: "Dark, high-contrast automotive catalogue advert built around a single call-to-action button.",
+        tags: [],
         publicPath: "assets/work/design/niyi-autos-advert.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.40.27.jpeg",
@@ -157,10 +161,10 @@ export const workSections = [
       },
       {
         id: "design-04",
-        title: "LidLake — Mobile App UI",
-        caption:
-          "Three-screen mobile app mockup for a food-delivery interface: landing, sign-up and authentication states.",
-        tags: ["Mobile UI", "App", "Mockup"],
+        title: "UI design in a mock-up",
+        caption: "",
+        alt: "Three-screen mobile app mock-up for a food-delivery interface: landing, sign-up and authentication states.",
+        tags: [],
         publicPath: "assets/work/design/lidlake-app-ui.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.39.04.jpeg",
@@ -169,10 +173,10 @@ export const workSections = [
       },
       {
         id: "design-05",
-        title: "Quick Breakfast — Logo Identity",
-        caption:
-          "Minimal monochrome brand mark rendered as a dimensional sign mockup on a concrete studio wall.",
-        tags: ["Logo", "Identity", "3D Mockup"],
+        title: "design",
+        caption: "",
+        alt: "Minimal monochrome logo rendered as a dimensional sign mock-up on a concrete studio wall.",
+        tags: [],
         publicPath: "assets/work/design/quick-breakfast-logo.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.40.33.jpeg",
@@ -181,10 +185,10 @@ export const workSections = [
       },
       {
         id: "design-06",
-        title: "Unisex — Eyewear Storefront",
-        caption:
-          "AI-generated e-commerce layout for a sunglasses shop, refined by hand into a warm yellow product composition.",
-        tags: ["AI-Assisted", "eCommerce", "UI"],
+        title: "UI design in a mock-up",
+        caption: "",
+        alt: "AI-generated e-commerce layout for a sunglasses shop, refined by hand into a warm yellow product composition.",
+        tags: [],
         publicPath: "assets/work/design/unisex-eyewear-ui.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.40.29.jpeg",
@@ -193,10 +197,10 @@ export const workSections = [
       },
       {
         id: "design-07",
-        title: "CWC — Faith Campaign Post",
-        caption:
-          "Square social-media creative built on a strict grid, geometric accents and high-contrast motivational copy.",
-        tags: ["Social", "Grid", "Campaign"],
+        title: "design",
+        caption: "",
+        alt: "Square social-media creative built on a strict grid, with geometric accents and high-contrast motivational copy.",
+        tags: [],
         publicPath: "assets/work/design/cwc-faith-campaign.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 08.55.07.jpeg",
@@ -205,10 +209,10 @@ export const workSections = [
       },
       {
         id: "design-08",
-        title: "Author Spotlight — Editorial Poster",
-        caption:
-          "Long-form editorial poster featuring an author profile with navy-and-gold art direction and body copy layout.",
-        tags: ["Editorial", "Poster", "Typography"],
+        title: "design",
+        caption: "",
+        alt: "Long-form editorial poster featuring an author profile with navy-and-gold art direction.",
+        tags: [],
         publicPath: "assets/work/design/author-spotlight-poster.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.38.53.jpeg",
@@ -217,10 +221,10 @@ export const workSections = [
       },
       {
         id: "design-09",
-        title: "Odyssey — Product Visual",
-        caption:
-          "Minimal smartwatch product visual on a dark surface, used as a hero image for a digital campaign.",
-        tags: ["Product", "Minimal", "Campaign"],
+        title: "design",
+        caption: "",
+        alt: "Minimal smartwatch product visual on a dark surface, used as a hero image for a digital campaign.",
+        tags: [],
         publicPath: "assets/work/design/odyssey-product-visual.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.40.34.jpeg",
@@ -229,10 +233,10 @@ export const workSections = [
       },
       {
         id: "design-10",
-        title: "Meiruluxe — Product Range Flyer",
-        caption:
-          "Compact personal-care product flyer with a check-list layout, contact strip and circular ingredient cut-outs.",
-        tags: ["Flyer", "Checklist", "Branding"],
+        title: "design",
+        caption: "",
+        alt: "Compact personal-care product flyer with a check-list layout, contact strip and circular ingredient cut-outs.",
+        tags: [],
         publicPath: "assets/work/design/meiruluxe-flyer.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.40.30.jpeg",
@@ -241,10 +245,10 @@ export const workSections = [
       },
       {
         id: "design-11",
-        title: "Independence Discount — Price Sheet",
-        caption:
-          "Full price-list sheet for an Independence Day offer, with tiered packages and payment terms for partners.",
-        tags: ["Price List", "Layout", "Offer"],
+        title: "design",
+        caption: "",
+        alt: "Full price-list sheet for an Independence Day offer, with tiered packages and payment terms.",
+        tags: [],
         publicPath: "assets/work/design/independence-discount-sheet.png",
         localPath: "C:\\Users\\itoha\\Downloads\\Frame 98 (1).png",
         width: 1330,
@@ -252,10 +256,10 @@ export const workSections = [
       },
       {
         id: "design-12",
-        title: "Odyssey 2026 — Summer Flyer",
-        caption:
-          "Tall event flyer with flight-ticket framing, activity schedule and registration call-to-action.",
-        tags: ["Event", "Flyer", "Schedule"],
+        title: "design",
+        caption: "",
+        alt: "Tall event flyer with flight-ticket framing, an activity schedule and a registration call to action.",
+        tags: [],
         publicPath: "assets/work/design/odyssey-summer-flyer.png",
         localPath: "C:\\Users\\itoha\\Downloads\\Odyssey design (5).png",
         width: 1414,
@@ -263,60 +267,46 @@ export const workSections = [
       },
     ],
   },
+
+  /* ------------------------------------------------------------------ */
+  /*  02 · IoT / Robotics & STEM                                          */
+  /* ------------------------------------------------------------------ */
   {
     id: "iot",
     index: "02",
-    kicker: "IoT Educator",
-    title: "Microcontrollers, sensors & hands-on STEM builds",
+    kicker: "IoT / Robotics & STEM",
+    title: "Smart builds, microcontrollers & hands-on teaching",
     blurb:
-      "Building, programming and teaching physical computing systems — from breadboard prototypes to Raspberry Pi programs walked through with participants.",
-    deliverables: [
+      "Building, programming and teaching physical computing systems — ESP-based smart builds, Arduino prototypes and STEM sessions run with real participants.",
+    galleryTitle: "Build log",
+    compactTitles: true,
+    highlights: [
       {
-        title: "Microcontroller Integration",
-        text: "Setting up and programming single-board computers (Raspberry Pi) and microcontrollers (Arduino Uno).",
+        id: "solar",
+        label: "Smart Solar House project",
+        detail: "ESP microcontroller · sensor-driven automation",
+        icon: "solar",
       },
       {
-        title: "Hardware & Sensor Interfacing",
-        text: "Connecting electronic components, circuits, and sensors for IoT Projects.",
+        id: "arduino",
+        label: "Arduino Uno",
+        detail: "Breadboard circuits, sensors & code tests",
+        icon: "arduino",
       },
       {
-        title: "STEM Hardware Building",
-        text: "Designing physical and electronic prototypes for hands-on technical projects.",
-      },
-    ],
-    groups: [
-      {
-        id: "builds",
-        label: "Hardware Builds",
-        blurb: "Breadboard prototypes, sensor arrays and microcontroller bench work.",
-        itemIds: ["iot-01"],
-      },
-      {
-        id: "teaching",
-        label: "Programs & Participant Sessions",
-        blurb: "Live sessions where the Raspberry Pi IoT program is explained to participants, step by step.",
-        itemIds: ["iot-02"],
+        id: "stem",
+        label: "STEM projects",
+        detail: "Hands-on sessions built around real hardware",
+        icon: "stem",
       },
     ],
     items: [
       {
-        id: "iot-01",
-        title: "Arduino IoT Prototype Bench",
-        caption:
-          "Workbench build with a wired sensor array, breadboard, jump leads and a code test feed on a laptop — the prototype stage before enclosure.",
-        tags: ["Arduino Uno", "Sensors", "Prototype"],
-        publicPath: "assets/work/iot/arduino-prototype-bench.jpg",
-        localPath:
-          "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-09-16 at 10.11.51.jpeg",
-        width: 1280,
-        height: 960,
-      },
-      {
         id: "iot-02",
-        title: "IoT with Raspberry Pi — Participant Session",
-        caption:
-          "Running a Raspberry Pi IoT program and walking participants through it — explaining the hardware, the code behind it, and the live sensor readings from the setup.",
-        tags: ["Raspberry Pi", "IoT", "Participants"],
+        title: "Raspberry Pi IoT session",
+        caption: "",
+        alt: "Presenting a Raspberry Pi IoT program to participants at an exhibition booth.",
+        tags: [],
         publicPath: "assets/work/iot/raspberry-pi-iot-program.jpg",
         localPath:
           "C:\\Users\\itoha\\OneDrive\\Desktop\\Pictures\\WhatsApp Image 2026-10-08 at 09.38.58.jpeg",
@@ -325,21 +315,54 @@ export const workSections = [
       },
     ],
   },
+
+  /* ------------------------------------------------------------------ */
+  /*  03 · AI-Assisted Pro — live web applications                        */
+  /* ------------------------------------------------------------------ */
   {
-    id: "communication",
+    id: "ai",
     index: "03",
-    kicker: "Technical Communication & Project Management",
-    title: "Decks, schedules & delivery coordination",
+    kicker: "AI-Assisted Pro",
+    title: "Live web applications, built with an AI-assisted workflow",
     blurb:
-      "Turning complex technical work into clear presentations, tracked schedules and coordinated delivery.",
+      "Production apps I have designed, prompted, assembled and shipped. Each card shows the product flow only — no accounts, records or personal data are displayed.",
+    galleryTitle: "",
     deliverables: [
       {
-        title: "Presentation & Deck Design",
-        text: "Structuring information, visuals, and technical details into structured slide decks.",
+        title: "Prompt-to-Prototype",
+        text: "Turning a brief into a working interface with AI-assisted generation and hand refinement.",
       },
       {
-        title: "Project Coordination",
-        text: "Overseeing projects, operational schedules, or technical tasks within an organization.",
+        title: "Full-Stack Assembly",
+        text: "Wiring authentication, data models and responsive layouts into a deployable app.",
+      },
+      {
+        title: "Secure Access Design",
+        text: "Role-gated entry points so only the right people reach protected content.",
+      },
+    ],
+    projects: [
+      {
+        id: "fcet",
+        title: "FCET Constitutional Review Portal",
+        tag: "Institution · workflow app",
+        href: "https://fcet-constitutional-review.onrender.com/",
+        summary:
+          "A gated review workspace for institutional governance documents. The application content is access-controlled — only the abstract flow is shown here.",
+        note: "Content is private · flow preview only",
+        steps: ["Secure sign-in", "Review workspace", "Member input", "Adoption"],
+        tone: "violet",
+      },
+      {
+        id: "odyssey",
+        title: "Odyssey Scheduler",
+        tag: "Scheduling · dashboard",
+        href: "https://odyssey-scheduler.onrender.com/login",
+        summary:
+          "An AI-assisted timetable builder: staff sign in, define constraints, generate a schedule and publish it to the team.",
+        note: "Sign-in required · no personal data shown",
+        steps: ["Sign in", "Set constraints", "Generate plan", "Publish"],
+        tone: "emerald",
       },
     ],
     items: [],

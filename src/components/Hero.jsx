@@ -13,9 +13,10 @@ import {
   Sparkles,
 } from "lucide-react";
 
-import { documents, profile, profilePhoto } from "../data/assets.js";
+import { profile, profilePhoto } from "../data/assets.js";
 import { assetUrl } from "../lib/assets.js";
 import { PdfViewer } from "./DocumentViewer.jsx";
+import { useDocuments } from "./DocumentsProvider.jsx";
 import { AnimatePresence } from "framer-motion";
 
 /* Tone -> colour pairs for the four skill badges. */
@@ -35,8 +36,8 @@ const TONE_ICON = {
 };
 
 const STATS = [
-  { value: "12+", label: "Design & brand assets" },
-  { value: "2", label: "IoT systems built" },
+  { value: "13+", label: "Design & brand assets" },
+  { value: "3", label: "IoT & STEM builds" },
   { value: "4", label: "Core disciplines" },
 ];
 
@@ -45,8 +46,8 @@ function DocumentButton({ doc, variant = "ghost", onView }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
       <a
-        href={assetUrl(doc.publicPath)}
-        download
+        href={doc.href}
+        download={doc.custom ? doc.customName : undefined}
         className={`btn ${variant === "primary" ? "btn-primary" : "btn-ghost"} group/doc relative overflow-hidden`}
         title={`${doc.label} (PDF)`}
       >
@@ -85,8 +86,13 @@ function DocumentButton({ doc, variant = "ghost", onView }) {
 
 export default function Hero() {
   const reduce = useReducedMotion();
+  const { documents } = useDocuments();
   const [viewingId, setViewingId] = useState(null);
   const words = profile.name.split(" ");
+
+  // A document can be hidden from the site via the admin panel.
+  const visibleDocuments = documents.filter((doc) => !doc.hidden);
+  const viewingDocument = documents.find((doc) => doc.id === viewingId);
 
   const container = {
     hidden: {},
@@ -234,7 +240,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.9 }}
             className="mt-9 flex flex-wrap gap-3"
           >
-            {documents.map((doc, i) => (
+            {visibleDocuments.map((doc, i) => (
               <DocumentButton
                 key={doc.id}
                 doc={doc}
@@ -353,11 +359,8 @@ export default function Hero() {
 
       {/* Inline CV / Résumé preview */}
       <AnimatePresence>
-        {viewingId && (
-          <PdfViewer
-            doc={documents.find((d) => d.id === viewingId)}
-            onClose={() => setViewingId(null)}
-          />
+        {viewingDocument && (
+          <PdfViewer doc={viewingDocument} onClose={() => setViewingId(null)} />
         )}
       </AnimatePresence>
     </header>

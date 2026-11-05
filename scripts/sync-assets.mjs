@@ -36,12 +36,15 @@ const targets = [
     destination: doc.publicPath,
     label: doc.label,
   })),
+  // Link-only tiles (e.g. the Figma prototype card) have no file to copy.
   ...workSections.flatMap((section) =>
-    section.items.map((item) => ({
-      source: item.localPath,
-      destination: item.publicPath,
-      label: `${section.kicker} · ${item.title}`,
-    })),
+    section.items
+      .filter((item) => item.localPath && item.publicPath)
+      .map((item) => ({
+        source: item.localPath,
+        destination: item.publicPath,
+        label: `${section.kicker} · ${item.title}`,
+      })),
   ),
 ];
 

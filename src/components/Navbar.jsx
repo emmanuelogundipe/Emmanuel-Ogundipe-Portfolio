@@ -7,9 +7,9 @@ import { profile } from "../data/assets.js";
 
 const LINKS = [
   { id: "home", label: "Home" },
-  { id: "design", label: "Design" },
-  { id: "iot", label: "IoT" },
-  { id: "communication", label: "Projects" },
+  { id: "design", label: "Designs" },
+  { id: "iot", label: "IoT & STEM" },
+  { id: "ai", label: "AI-Assisted Pro" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -83,14 +83,14 @@ export default function Navbar() {
             </a>
 
             {/* Desktop links */}
-            <ul className="hidden list-none items-center gap-1 p-0 md:flex">
+            <ul className="hidden list-none items-center gap-1 p-0 lg:flex">
               {LINKS.map((link) => {
                 const isActive = active === link.id;
                 return (
                   <li key={link.id}>
                     <a
                       href={`#${link.id}`}
-                      className={`relative block rounded-xl px-3.5 py-2 text-sm font-medium transition-colors ${
+                      className={`relative block rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
                         isActive ? "text-ink" : "text-muted hover:text-ink"
                       }`}
                     >
@@ -148,7 +148,7 @@ export default function Navbar() {
                 onClick={() => setOpen((o) => !o)}
                 aria-label={open ? "Close menu" : "Open menu"}
                 aria-expanded={open}
-                className="grid h-10 w-10 place-items-center rounded-xl glass text-ink md:hidden"
+                className="grid h-10 w-10 place-items-center rounded-xl glass text-ink lg:hidden"
               >
                 {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
@@ -163,7 +163,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0, height: "auto" }}
                 exit={{ opacity: 0, y: -12, height: 0 }}
                 transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                className="nav-solid relative mt-2 overflow-hidden rounded-2xl p-2 md:hidden"
+                className="nav-solid relative mt-2 overflow-hidden rounded-2xl p-2 lg:hidden"
               >
                 <ul className="list-none p-0">
                   {LINKS.map((link, i) => (

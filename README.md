@@ -2,7 +2,7 @@
 
 A modern, responsive, highly interactive personal portfolio built with **React 19 + Vite + Tailwind CSS v4 + Framer Motion**.
 
-It presents three professional domains — **visual/graphic & UI design**, **IoT education**, and **technical communication & project management** — with animated galleries, a full-screen lightbox, and a contact footer whose buttons perform real actions (WhatsApp chat, `mailto:` draft, LinkedIn, X, GitHub).
+It presents three professional domains — **designs** (UI, brand & campaign), **IoT / Robotics & STEM**, and **AI-Assisted Pro** (live web applications) — with animated galleries, a full-screen lightbox, and a contact footer whose buttons perform real actions (WhatsApp chat, `mailto:` draft, LinkedIn, X, GitHub).
 
 ---
 
@@ -12,9 +12,11 @@ It presents three professional domains — **visual/graphic & UI design**, **IoT
 | --- | --- |
 | **Hero** | Word-by-word name reveal, drifting aurora background, conic-gradient glow ring around the profile photo, floating stat chips, four colour-coded skill badges |
 | **Documents** | *Download CV* / *Download Resume* buttons with red PDF marks, hover elevation and file download |
-| **Gallery** | 14 responsive image tiles, staggered fade-up/scale on scroll, `backdrop-blur` caption bars, aspect-ratio reserved to prevent layout shift |
+| **Gallery** | Flat design wall plus a build log, staggered fade-up/scale on scroll, `backdrop-blur` caption bars, aspect-ratio reserved to prevent layout shift |
 | **Lightbox** | Full-screen modal, arrow-key / Esc / swipe navigation, filmstrip, double-click zoom, per-image download, focus trapping + scroll lock |
-| **Section 03** | Six hand-built animated SVG panels: Gantt bars, pulsing target nodes, workflow pipeline, operational calendar, animated task checkmarks, milestone progress bars |
+| **Section 02** | Three interactive animated SVG marks (solar house, Arduino board, STEM atom) drawn in-house — no icon fonts |
+| **Section 03** | Two shipped web apps with abstract animated flow diagrams (no embedded/private content) plus the six-panel animated delivery dashboard |
+| **Admin** | Footer *Admin* button, PIN `5588`, browser-local CV / Résumé swap or hide |
 | **Contact** | Five live action channels with brand colours, glow-on-hover, plus a pre-filled WhatsApp CTA |
 | **Global** | Dark ⇄ light theme with no flash-of-wrong-theme, scroll progress bar, back-to-top FAB, marquee toolkit, full keyboard support and `prefers-reduced-motion` fallbacks |
 
@@ -42,8 +44,8 @@ ogundipe-portfolio/
 │  └─ assets/
 │     ├─ profile/portrait.jpg
 │     └─ work/
-│        ├─ design/  (12 files)
-│        └─ iot/     (2 files)
+│        ├─ design/  (13 files)
+│        └─ iot/     (1 file)
 │
 ├─ scripts/
 │  └─ sync-assets.mjs             # copies local files → public/ using the manifest
@@ -55,14 +57,19 @@ ogundipe-portfolio/
    ├─ data/assets.js              # ← SINGLE SOURCE OF TRUTH (content + local paths)
    ├─ hooks/useTheme.js           # theme toggle + active-section observer
    ├─ lib/assets.js               # assetUrl() — BASE_URL-safe path resolution
+   ├─ lib/documentStore.js        # IndexedDB store for admin uploads
    └─ components/
       ├─ Navbar.jsx               # glass nav, scroll progress, mobile menu
       ├─ Hero.jsx                 # profile photo, badges, CV/Resume buttons
       ├─ Toolkit.jsx              # tools marquee + stats strip
       ├─ SectionShell.jsx         # shared section layout
-      ├─ GalleryGrid.jsx          # animated image grid
+      ├─ GalleryGrid.jsx          # flat or grouped animated image grid
       ├─ Lightbox.jsx             # modal provider + viewer
-      ├─ ProjectDashboard.jsx     # animated SVG dashboard (section 03)
+      ├─ IoTHighlights.jsx        # 3 interactive animated SVG marks
+      ├─ AiProjects.jsx           # live apps + abstract animated flows
+      ├─ ProjectDashboard.jsx     # animated SVG delivery dashboard
+      ├─ DocumentsProvider.jsx    # runtime CV / Résumé overrides
+      ├─ AdminPanel.jsx           # PIN-gated document manager
       ├─ Contact.jsx              # action channels + footer bar
       ├─ BackToTop.jsx
       ├─ BrandIcons.jsx           # WhatsApp / LinkedIn / X / GitHub marks
@@ -119,29 +126,23 @@ Each entry carries both a `localPath` (on this machine) and a `publicPath`
 | 10 | `…\Pictures\WhatsApp Image 2026-10-08 at 09.40.30.jpeg` | `assets/work/design/meiruluxe-flyer.jpg` |
 | 11 | `…\Downloads\Frame 98 (1).png` | `assets/work/design/independence-discount-sheet.png` |
 | 12 | `…\Downloads\Odyssey design (5).png` | `assets/work/design/odyssey-summer-flyer.png` |
-| 13 | `…\Pictures\WhatsApp Image 2026-09-16 at 10.11.51.jpeg` | `assets/work/iot/arduino-prototype-bench.jpg` |
+| 13 | `…\Downloads\Logo Design.jpeg` | `assets/work/design/logo-design.jpg` |
 | 14 | `…\Pictures\WhatsApp Image 2026-10-08 at 09.38.58.jpeg` | `assets/work/iot/raspberry-pi-iot-program.jpg` |
+
+> The Figma prototype tile (`AI-Assisted UI Concept`) is a link, not a file:
+> it has `kind: "link"` and `href` instead of `localPath` / `publicPath`, so the
+> sync script skips it.
 
 **Adding or replacing work:** edit the `items` array for the relevant section in
 `src/data/assets.js` (title, caption, tags, `publicPath`, `localPath`, `width`,
 `height`), then run `npm run sync:assets`. The grid, the lightbox and the
 counting badge update automatically.
 
-**Grouping and filtering:** each section also has a `groups` array that names
-its sub-categories and lists which items belong to them via `itemIds`. Add a new
-image and drop its id into a group (or leave it out — ungrouped items render
-under an automatic "Other work" heading, so an image can never silently vanish).
-
-```js
-groups: [
-  {
-    id: "brand",
-    label: "Brand & Marketing",
-    blurb: "Banners, adverts and promotional flyers produced for client campaigns.",
-    itemIds: ["design-01", "design-02", "design-03", "design-10"],
-  },
-],
-```
+**Flat vs grouped galleries:** a section *without* a `groups` array renders one
+undivided grid with no filter bar — that is how **Designs** is set up. Add a
+`groups` array (`{ id, label, blurb, itemIds }`) only when you want sub-sections
+and filter chips. Setting `compactTitles: true` strips tiles down to the title
+alone (no index number, no caption, no tag chips).
 
 **Serving from another machine:** because the site only ever references
 `publicPath` values through `assetUrl()`, you can drop the files into `public/`
@@ -183,15 +184,46 @@ cause layout shift while loading.
 
 ---
 
+## 🔐 Admin panel (CV / Résumé)
+
+A subdued **Admin** button sits at the bottom of the page, next to *Back to top*.
+
+1. Click **Admin** → enter PIN **5588**.
+2. Each document row shows its status: `Default`, `Custom` or `Hidden`.
+3. **Upload PDF** replaces it, **Delete** hides it from the hero, and
+   **Restore default** reverts to the file committed in `public/documents/`.
+
+**Read this before relying on it.** The site is a static bundle with no server,
+so uploads are stored in the visitor's browser (IndexedDB) and only change the
+link **on that device**. There is no way for a static host to accept a file and
+re-publish it to everyone.
+
+Two consequences:
+
+- The PIN is a UI gate, not real authentication. Anyone can read it in the
+  bundle. It only protects against casual clicks; it grants no server access.
+- To change the CV / Résumé **for every visitor**, replace the PDF in
+  `public/documents/` (same filename), run `npm run build`, and push. Render
+  redeploys automatically.
+
+If you need true site-wide uploads, that requires a small backend (or object
+storage such as S3/Cloudinary) — a separate, deliberate change.
+
+---
+
 ## 🎛️ Customising
 
 | Want to change… | Edit |
 | --- | --- |
 | Name, summary, skill badges | `src/data/assets.js` → `profile` |
 | Projects, captions, images | `src/data/assets.js` → `workSections` |
+| Section order / composition | `src/App.jsx` + `Navbar.jsx` → `LINKS` |
+| Admin PIN | `src/components/AdminPanel.jsx` → `ADMIN_PIN` |
 | **GitHub link** (`github.com/emmanuelogundipe`) | `src/components/Contact.jsx` → `CHANNELS` entry `id: "github"` |
 | Colours / radii / shadows | `src/index.css` → `:root` + `[data-theme="light"]` |
 | Section 03 dashboard data | `src/components/ProjectDashboard.jsx` (`GanttRows`, `MILESTONES`, `TASKS`, `BUSY`, `FLOW`) |
+| Live app list / flow steps | `src/data/assets.js` → `workSections[2].projects` |
+| IoT highlight cards | `src/data/assets.js` → `workSections[1].highlights` |
 | Fonts | the `<link>` in `index.html` + `--font-display` / `--font-sans` in `index.css` |
 
 > **Live repo:** <https://github.com/emmanuelogundipe/Emmanuel-Ogundipe-Portfolio> — the

@@ -3,7 +3,6 @@ import {
   ArrowUp,
   ArrowUpRight,
   BookOpen,
-  Heart,
   Mail,
   ShieldCheck,
   Sparkles,
@@ -15,6 +14,7 @@ import {
   WhatsAppIcon,
   XIcon,
 } from "./BrandIcons.jsx";
+import AdminPanel from "./AdminPanel.jsx";
 import { Reveal } from "./Reveal.jsx";
 import { profile } from "../data/assets.js";
 
@@ -263,9 +263,9 @@ export default function Contact() {
           </div>
 
           <nav aria-label="Footer" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted">
-            <a href="#design" className="transition-colors hover:text-ink">Design</a>
-            <a href="#iot" className="transition-colors hover:text-ink">IoT</a>
-            <a href="#communication" className="transition-colors hover:text-ink">Projects</a>
+            <a href="#design" className="transition-colors hover:text-ink">Designs</a>
+            <a href="#iot" className="transition-colors hover:text-ink">IoT &amp; STEM</a>
+            <a href="#ai" className="transition-colors hover:text-ink">AI-Assisted Pro</a>
             <a
               href="https://wa.me/2349117639108"
               target="_blank"
@@ -276,10 +276,8 @@ export default function Contact() {
             </a>
           </nav>
 
-          <div className="flex items-center gap-3">
-            <span className="hidden items-center gap-1.5 text-xs text-muted sm:inline-flex">
-              Built with <Heart className="h-3.5 w-3.5 text-rose-400" /> in React + Vite
-            </span>
+          <div className="flex items-center gap-2">
+            <AdminPanel />
             <button
               type="button"
               onClick={scrollTop}

@@ -37,7 +37,7 @@ export function PdfViewer({ doc, onClose }) {
     };
   }, [onClose]);
 
-  const url = assetUrl(doc.publicPath);
+  const url = doc.href || assetUrl(doc.publicPath);
 
   return (
     <motion.div
@@ -84,7 +84,7 @@ export function PdfViewer({ doc, onClose }) {
           <div className="flex shrink-0 items-center gap-1.5">
             <a
               href={url}
-              download
+              download={doc.custom ? doc.customName : undefined}
               className="btn btn-ghost !px-3 !py-2 text-xs"
               title="Download a copy"
             >
